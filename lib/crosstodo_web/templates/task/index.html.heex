@@ -1,0 +1,75 @@
+<section class="ghost-bg-div">
+    <img id="deskimg" src={ Routes.static_path(@conn, "/images/bg-desktop-dark.jpg")} />
+    <img id="deskimg-mb" src={ Routes.static_path(@conn, "/images/bg-mobile-dark.jpg")} />
+</section>
+
+<section class="conteiner">
+  <section class="header">
+    <span class="header-title">T O D O</span>
+    <img id="icon-tema-sol" class="icon-tm-sun" src={ Routes.static_path(@conn, "/images/icon-sun.svg")} />
+    <img id="icon-tema-lua" class="icon-tm-moon" src={ Routes.static_path(@conn, "/images/icon-moon.svg")} />
+    <!--<input class="new-todo" placeholder="Sua proxima tarefa..." />-->
+    <%= render "form.html", Map.put(assigns, :action, Routes.task_path(@conn, :create)) %>
+  </section>
+
+<section class="main">
+    <ul class="todo-list">
+    <%= for task <- @tasks do %>
+      <li class="open-item-list">
+        <div class="open-item">
+          <%= task.text %>
+          <button class="destroy">
+            <img class="icon" src={ Routes.static_path(@conn, "/images/icon-cross.svg") } />
+            <%= link "X", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "A Task será excluida, confirma?"] %>
+          </button>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+    <footer class="footer">
+      <ul class="filters">
+        <span class="todo-count"><strong>*</strong> items left</span>
+        <li>
+          <a id="all" href="#/">All</a>
+        </li>
+        <li>
+          <a id="active" href="#/active">Active</a>
+        </li>
+        <li>
+          <a id="completed" href="#/completed">Completed</a>
+        </li>
+        <li>
+          <a id="clear" href="#/clear">Clear completed</a>
+        </li>
+      </ul>
+    </footer>
+  </section>
+<!--
+  <table>
+    <thead>
+      <tr>
+        <th>Text</th>
+        <th>Status</th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for task <- @tasks do %>
+      <tr>
+        <td><%= task.text %></td>
+        <td><%= task.status %></td>
+
+        <td>
+          <span><%= link "Show", to: Routes.task_path(@conn, :show, task) %></span>
+          <span><%= link "Edit", to: Routes.task_path(@conn, :edit, task) %></span>
+          <span><%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+
+  <span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>
+-->
+</section>
